@@ -44,11 +44,21 @@ struct TipBrain {
     mutating func getResult() -> Float{
         // Calculation Result
         let percentage = bill! / 100.0
-        tip = percentage * tip
-        result = (bill! + tip) / split
+        let tipValue = percentage * tip
+        result = (bill! + tipValue) / split
         
         return result!
     }
     
+    
+    // get split
+    func getSplit() -> Float{
+        return split
+    }
+    
+    // get Tip
+    func getTipPercentage() -> Float{
+        return tip
+    }
     
 }
