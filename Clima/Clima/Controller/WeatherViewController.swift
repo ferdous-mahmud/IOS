@@ -10,44 +10,28 @@ import UIKit
 
 // UITextFieldDelegate for go button from keyboard
 class WeatherViewController: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextFild: UITextField!
+    
+    let weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // call own delegate
         searchTextFild.delegate = self
     }
-
+    
     // Search Button pressed
     @IBAction func searchButtonPressed(_ sender: UIButton) {
-        
-        if checkNil(textField: searchTextFild){
-            print(searchTextFild.text!)
-            // Hide keyboard
-            searchTextFild.endEditing(true)
-        }
-        else{
-            searchTextFild.placeholder = "Please input city name.."
-        }
+        _ = checkNil(textField: searchTextFild)
     }
     
     // Go button pressed func
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-
-        if checkNil(textField: textField){
-            print(searchTextFild.text!)
-            // Hide keyboard
-            searchTextFild.endEditing(true)
-            return true
-        }
-        else{
-            searchTextFild.placeholder = "Please input city name.."
-        }
-        return false
+        return checkNil(textField: textField)
     }
     
     // Editing end or not
@@ -57,6 +41,10 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     
     // Clear text Fields String
     func textFieldDidEndEditing(_ textField: UITextField) {
+        // Fetch Weather data
+        if let city = searchTextFild.text{
+            weatherManager.fetchWeather(cityName: city)
+        }
         textField.placeholder = "Search"
         textField.text = ""
     }
@@ -64,6 +52,8 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     // Check have value nil or not
     func checkNil(textField: UITextField) -> Bool{
         if textField.text != "" {
+            // Hide keyboard
+            searchTextFild.endEditing(true)
             return true
         }
         else{
