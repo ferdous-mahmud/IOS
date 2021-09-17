@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 //protocol for delegate pattern
 protocol WeatherViewControllerDelegate {
@@ -16,12 +17,19 @@ protocol WeatherViewControllerDelegate {
 
 struct WeatherManager {
     let weatherUIL = "https://api.openweathermap.org/data/2.5/weather?units=metric"
-    private let appId = "cbf839d6c47fc8fe8e6d798174c641b4"
+    private let apiKey = "cbf839d6c47fc8fe8e6d798174c641b4"
     
     var delegate: WeatherViewControllerDelegate?
 
+    // Fetch Weather data by Coordinates
+    func fetchWeather(latatude: CLLocationDegrees, longitude: CLLocationDegrees){
+        let urlString = "\(weatherUIL)&lat=\(latatude)&lon=\(longitude)&appid=\(apiKey)"
+        performRequest(with: urlString)
+    }
+    
+    // Fetch waather data by city Name
     func fetchWeather(cityName: String){
-        let urlString = "\(weatherUIL)&q=\(cityName)&appid=\(appId)"
+        let urlString = "\(weatherUIL)&q=\(cityName)&appid=\(apiKey)"
         performRequest(with: urlString)
     }
     
