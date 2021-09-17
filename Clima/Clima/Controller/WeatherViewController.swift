@@ -9,19 +9,20 @@
 import UIKit
 
 // UITextFieldDelegate for go button from keyboard
-class WeatherViewController: UIViewController, UITextFieldDelegate {
+class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherViewControllerDelegate {
     
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextFild: UITextField!
     
-    let weatherManager = WeatherManager()
+    var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // call own delegate
         searchTextFild.delegate = self
+        weatherManager.delegate = self
     }
     
     // Search Button pressed
@@ -62,7 +63,21 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // Check Weather Update with delegate pattern
+    func didWeatherUpdate(_ weatherManager: WeatherManager,weather: WeatherModel){
+        DispatchQueue.main.async {
+            self.cityLabel.text = weather.cityName
+            self.temperatureLabel.text = weather.tenperatureString
+            //self.conditionImageView.image = weather.conditionName
+        }
+        
+        print(weather.cityName)
+        print(weather.conditionName)
+    }
     
-    
+    // Error handaling
+    func didFailedWithError(_ error: Error) {
+        print(error)
+    }
 }
 
