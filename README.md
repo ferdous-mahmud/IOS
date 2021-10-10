@@ -9,6 +9,8 @@ Angela Yu IOS development course coding practice
 ### Table of Contents
 
 - [ByteCoin](#ByteCoin)
+- [How To Use](#how-to-use)
+- [Author Info](#author-info)
 
 ---
 
