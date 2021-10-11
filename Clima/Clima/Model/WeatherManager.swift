@@ -17,7 +17,7 @@ protocol WeatherViewControllerDelegate {
 
 struct WeatherManager {
     let weatherUIL = "https://api.openweathermap.org/data/2.5/weather?units=metric"
-    private let apiKey = "cbf839d6c47fc8fe8e6d798174c641b4"
+    private let apiKey = "Your_api_key"
     
     var delegate: WeatherViewControllerDelegate?
 
