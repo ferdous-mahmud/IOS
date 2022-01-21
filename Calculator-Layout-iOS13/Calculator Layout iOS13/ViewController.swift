@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var displayLable: UILabel!
     
-    var isFinishedTypingNumber: Bool = true
+    private var isFinishedTypingNumber: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +25,35 @@ class ViewController: UIViewController {
         isFinishedTypingNumber = true
         
         if let calcValue = sender.currentTitle {
-            switch calcValue{
-                case "=" :
-                    print("= pressed")
+            if let currentDisplayLable = displayLable.text{
                 
+                let doubledLableText = Double(currentDisplayLable) ?? 0
                 
-                default:
-                    print("default")
+                switch calcValue{
+                    case "=" :
+                        print("\(calcValue) pressed")
+                    case "C" :
+                        displayLable.text = ""
+                    case "+/-" :
+                        if(doubledLableText >= 0){
+                            displayLable.text = "-" + currentDisplayLable
+                        }
+                        else{
+                            displayLable.text = String(currentDisplayLable.dropFirst(1))
+                        }
+                    case "%" :
+                            displayLable.text = String(doubledLableText / Double(100))
+                    case "÷" :
+                        print("\(calcValue) pressed")
+                    case "×" :
+                        print("\(calcValue) pressed")
+                    case "-" :
+                        print("\(calcValue) pressed")
+                    case "+" :
+                        print("\(calcValue) pressed")
+                    default:
+                        print("defalut")
+                    }
             }
         }
     }
