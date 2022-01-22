@@ -27,7 +27,9 @@ class ViewController: UIViewController {
         if let calcValue = sender.currentTitle {
             if let currentDisplayLable = displayLable.text{
                 
-                let doubledLableText = Double(currentDisplayLable) ?? 0
+                guard let doubledLableText = Double(currentDisplayLable) else {
+                    fatalError("Error! can't convert displayLable text into a Double")
+                }
                 
                 switch calcValue{
                     case "=" :
