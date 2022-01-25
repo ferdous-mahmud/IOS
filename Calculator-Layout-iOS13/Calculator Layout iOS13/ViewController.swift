@@ -14,6 +14,18 @@ class ViewController: UIViewController {
     
     private var isFinishedTypingNumber: Bool = true
     
+    private var displayValue: Double {
+        get{
+            guard let doubleValue = Double(displayLable.text!) else {
+                fatalError("Error! can't convert displayLable text into a Double")
+            }
+            return doubleValue
+        }
+        set{
+            displayLable.text = String(newValue)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -25,26 +37,15 @@ class ViewController: UIViewController {
         isFinishedTypingNumber = true
         
         if let calcValue = sender.currentTitle {
-            if let currentDisplayLable = displayLable.text{
-                
-                guard let doubledLableText = Double(currentDisplayLable) else {
-                    fatalError("Error! can't convert displayLable text into a Double")
-                }
-                
                 switch calcValue{
                     case "=" :
                         print("\(calcValue) pressed")
                     case "C" :
-                        displayLable.text = ""
+                        displayLable.text = "0"
                     case "+/-" :
-                        if(doubledLableText >= 0){
-                            displayLable.text = "-" + currentDisplayLable
-                        }
-                        else{
-                            displayLable.text = String(currentDisplayLable.dropFirst(1))
-                        }
+                        displayValue *= -1
                     case "%" :
-                            displayLable.text = String(doubledLableText / Double(100))
+                        displayValue *= 0.01
                     case "÷" :
                         print("\(calcValue) pressed")
                     case "×" :
@@ -55,8 +56,7 @@ class ViewController: UIViewController {
                         print("\(calcValue) pressed")
                     default:
                         print("defalut")
-                    }
-            }
+                }
         }
     }
     
@@ -69,14 +69,8 @@ class ViewController: UIViewController {
             else{
                 
                 if sender.currentTitle == "." {
-                    if let displayLableText = displayLable.text {
-                        guard let displayLableDouble = Double(displayLableText) else {
-                            fatalError("Error! can't convert display lable text to double")
-                        }
-                        
-                        if displayLableDouble != floor(displayLableDouble) {
-                            return
-                        }
+                    if displayValue != floor(displayValue) {
+                        return
                     }
                 }
                 
