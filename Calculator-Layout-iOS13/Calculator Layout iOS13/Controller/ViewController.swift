@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var displayLable: UILabel!
-    
     private var isFinishedTypingNumber: Bool = true
     
     private var displayValue: Double {
@@ -25,7 +24,7 @@ class ViewController: UIViewController {
             displayLable.text = String(newValue)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -37,26 +36,12 @@ class ViewController: UIViewController {
         isFinishedTypingNumber = true
         
         if let calcValue = sender.currentTitle {
-                switch calcValue{
-                    case "=" :
-                        print("\(calcValue) pressed")
-                    case "C" :
-                        displayLable.text = "0"
-                    case "+/-" :
-                        displayValue *= -1
-                    case "%" :
-                        displayValue *= 0.01
-                    case "÷" :
-                        print("\(calcValue) pressed")
-                    case "×" :
-                        print("\(calcValue) pressed")
-                    case "-" :
-                        print("\(calcValue) pressed")
-                    case "+" :
-                        print("\(calcValue) pressed")
-                    default:
-                        print("defalut")
-                }
+            let calculator = CalculatorLogic(number: displayValue)
+            
+            guard let calculatedValue = calculator.calculate(symble: calcValue) else {
+                fatalError("Error! calculation result are nil")
+            }
+            displayValue = calculatedValue
         }
     }
     
