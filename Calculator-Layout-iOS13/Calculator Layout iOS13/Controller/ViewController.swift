@@ -24,20 +24,19 @@ class ViewController: UIViewController {
             displayLable.text = String(newValue)
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
+    private var calculator = CalculatorLogic()
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
-        
         isFinishedTypingNumber = true
+        calculator.setNumber(displayValue)
         
         if let calcValue = sender.currentTitle {
-            let calculator = CalculatorLogic(number: displayValue)
-            
             guard let calculatedValue = calculator.calculate(symble: calcValue) else {
                 fatalError("Error! calculation result are nil")
             }

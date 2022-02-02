@@ -10,23 +10,24 @@ import Foundation
 
 struct CalculatorLogic{
     
-    var number: Double
+    private var number: Double?
     
-    init(number: Double){
+    mutating func setNumber(_ number: Double){
         self.number = number
     }
     
     func calculate(symble: String) -> Double? {
         
+        if let n = number {
         switch symble{
             case "=" :
                 print("\(symble) pressed")
             case "C" :
                 return 0
             case "+/-" :
-                return number * -1
+                return n * -1
             case "%" :
-                return number * 0.01
+                return n * 0.01
             case "÷" :
                 print("\(symble) pressed")
             case "×" :
@@ -37,9 +38,8 @@ struct CalculatorLogic{
                 print("\(symble) pressed")
             default:
                 print("defalut")
+            }
         }
-        
         return nil
     }
-    
 }
